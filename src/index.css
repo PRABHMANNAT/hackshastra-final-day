@@ -1238,18 +1238,77 @@ input:focus-visible {
 }
 
 @media (max-width: 980px) {
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .viewport-shell {
+    height: auto;
+    min-height: 100svh;
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  .fit-frame {
+    width: 100%;
+  }
+
+  .interface-shell {
+    overflow: visible;
+  }
+
   .blueprint {
     grid-template-columns: 1fr;
+    height: auto;
+    gap: 14px;
   }
 
   .blueprint::before {
     display: none;
   }
 
+  .center-stage {
+    order: 1;
+    grid-template-rows: repeat(6, auto);
+    padding: 0;
+  }
+
+  .right-rail {
+    order: 2;
+    grid-template-rows: auto;
+  }
+
+  .left-rail {
+    order: 3;
+    grid-template-rows: auto;
+  }
+
   .left-rail,
   .right-rail,
   .center-stage {
     min-height: auto;
+  }
+
+  .sensor-stack,
+  .alerts-list,
+  .preview-strip,
+  .analysis-grid,
+  .memory-box {
+    overflow: visible;
+    max-height: none;
+  }
+
+  .assistant-orb-shell {
+    min-height: 280px;
+  }
+
+  .assistant-orb-shell::before {
+    width: 100%;
+  }
+
+  .assistant-orb {
+    width: min(300px, 74vw);
   }
 }
 
@@ -1261,10 +1320,12 @@ input:focus-visible {
   .surface-header {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
   }
 
   .surface-meta {
     justify-content: flex-start;
+    width: 100%;
   }
 
   .status-ribbon {
@@ -1274,11 +1335,48 @@ input:focus-visible {
     min-height: 56px;
     white-space: normal;
   }
+
+  .surface-pill,
+  .surface-score {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .camera-bar {
+    left: 12px;
+    right: auto;
+    max-width: calc(100% - 24px);
+    flex-wrap: wrap;
+    gap: 6px;
+    letter-spacing: 0.12em;
+  }
+
+  .camera-footer {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+  }
+
+  .analysis-stats {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 720px) {
+  .viewport-shell {
+    padding: 10px;
+  }
+
   .surface-title {
-    font-size: 2.5rem;
+    font-size: 2.24rem;
+  }
+
+  .block-title {
+    font-size: 1.46rem;
+  }
+
+  .rail-block {
+    padding: 12px;
   }
 
   .chat-dock {
@@ -1293,5 +1391,36 @@ input:focus-visible {
   .stage-topline {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .stage-mic,
+  .record-button,
+  .camera-download {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .voice-buffer {
+    min-height: auto;
+    padding: 10px 12px;
+    white-space: normal;
+    border-radius: 16px;
+  }
+
+  .assistant-orb-shell {
+    min-height: 240px;
+  }
+
+  .assistant-orb {
+    width: min(250px, 78vw);
+  }
+
+  .type-copy {
+    min-height: auto;
+    font-size: 0.9rem;
+  }
+
+  .camera-pill {
+    max-width: 100%;
   }
 }

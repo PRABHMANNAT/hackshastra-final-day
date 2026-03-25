@@ -842,6 +842,7 @@ function App() {
   const [cameraModelStatus, setCameraModelStatus] = useState('idle')
   const [cameraAnalysis, setCameraAnalysis] = useState(() => buildEmptyCameraAnalysis())
   const [lastVideoClipUrl, setLastVideoClipUrl] = useState('')
+  const [isCompactViewport, setIsCompactViewport] = useState(false)
   const [viewportScale, setViewportScale] = useState(1)
 
   const mediaRecorderRef = useRef(null)
@@ -993,6 +994,14 @@ function App() {
 
   useEffect(() => {
     function updateViewportScale() {
+      const compactViewport = window.innerWidth <= 980
+      setIsCompactViewport(compactViewport)
+
+      if (compactViewport) {
+        setViewportScale(1)
+        return
+      }
+
       const padding = 24
       const widthRatio = (window.innerWidth - padding) / ARTBOARD_WIDTH
       const heightRatio = (window.innerHeight - padding) / ARTBOARD_HEIGHT
@@ -1539,16 +1548,17 @@ function App() {
       <div
         className="fit-frame"
         style={{
-          width: `${ARTBOARD_WIDTH * viewportScale}px`,
-          height: `${ARTBOARD_HEIGHT * viewportScale}px`,
+          width: isCompactViewport ? '100%' : `${ARTBOARD_WIDTH * viewportScale}px`,
+          height: isCompactViewport ? 'auto' : `${ARTBOARD_HEIGHT * viewportScale}px`,
         }}
       >
         <div
           className="interface-shell"
           style={{
-            width: `${ARTBOARD_WIDTH}px`,
-            height: `${ARTBOARD_HEIGHT}px`,
-            transform: `scale(${viewportScale})`,
+            width: isCompactViewport ? '100%' : `${ARTBOARD_WIDTH}px`,
+            height: isCompactViewport ? 'auto' : `${ARTBOARD_HEIGHT}px`,
+            minHeight: isCompactViewport ? 'calc(100svh - 24px)' : `${ARTBOARD_HEIGHT}px`,
+            transform: isCompactViewport ? 'none' : `scale(${viewportScale})`,
           }}
         >
           <div className="orb orb-left" aria-hidden="true" />
